@@ -1,15 +1,16 @@
-Author: Daniel Baumann <daniel@debian.org>
-Download: http://www.daniel-baumann.ch/software/dosfstools/
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: dosfstools
+Upstream-Contact: Daniel Baumann <daniel@debian.org>
+Source: http://www.daniel-baumann.ch/software/dosfstools/
 
 Files: *
-Copyright:
- (C) 1991 Linus Torvalds <torvalds@klaava.helsinki.fi>
- (C) 1992-1993 Remy Card <card@masi.ibp.fr>
- (C) 1993-1994 David Hudson <dave@humbug.demon.co.uk>
- (C) 1999-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
- (C) 1999-2005 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
- (C) 1999-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
- (C) 2008-2010 Daniel Baumann <daniel@debian.org>
+Copyright: 1991 Linus Torvalds <torvalds@klaava.helsinki.fi>
+           1992-1993 Remy Card <card@masi.ibp.fr>
+           1993-1994 David Hudson <dave@humbug.demon.co.uk>
+           1999-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+           1999-2005 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
+           1999-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+           2008-2012 Daniel Baumann <daniel.baumann@progress-technologies.net>
 License: GPL-3+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -24,5 +25,5 @@ License: GPL-3+
  You should have received a copy of the GNU General Public License
  along with this program. If not, see <http://www.gnu.org/licenses/>.
  .
- On Debian systems, the complete text of the GNU General Public License
+ The complete text of the GNU General Public License
  can be found in /usr/share/common-licenses/GPL-3 file.
