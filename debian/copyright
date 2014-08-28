@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dosfstools
-Upstream-Contact: Daniel Baumann <daniel@debian.org>
-Source: http://www.daniel-baumann.ch/software/dosfstools/
+Upstream-Contact: Daniel Baumann <mail@daniel-baumann.ch>
+Source: http://daniel-baumann.ch/files/software/dosfstools/
 
 Files: *
 Copyright: 1991 Linus Torvalds <torvalds@klaava.helsinki.fi>
@@ -10,7 +10,9 @@ Copyright: 1991 Linus Torvalds <torvalds@klaava.helsinki.fi>
            1999-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
            1999-2005 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
            1999-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
-           2008-2012 Daniel Baumann <daniel.baumann@progress-technologies.net>
+           2008-2014 Daniel Baumann <mail@daniel-baumann.ch>
+License: GPL-3+
+
 License: GPL-3+
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by

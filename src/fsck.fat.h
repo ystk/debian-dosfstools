@@ -1,7 +1,8 @@
-/* dosfsck.h  -  Common data structures and global variables
+/* fsck.fat.h  -  Common data structures and global variables
 
    Copyright (C) 1993 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
    Copyright (C) 1998 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+   Copyright (C) 2008-2014 Daniel Baumann <mail@daniel-baumann.ch>
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -26,6 +27,7 @@
 #ifndef _DOSFSCK_H
 #define _DOSFSCK_H
 
+#include <fcntl.h>
 #include <sys/types.h>
 #define _LINUX_STAT_H		/* hack to avoid inclusion of <linux/stat.h> */
 #define _LINUX_STRING_H_	/* hack to avoid inclusion of <linux/string.h> */
@@ -36,25 +38,13 @@
 
 #include <linux/msdos_fs.h>
 
-#undef CF_LE_W
-#undef CF_LE_L
-#undef CT_LE_W
-#undef CT_LE_L
-
-#if __BYTE_ORDER == __BIG_ENDIAN
-#include <byteswap.h>
-#define CF_LE_W(v) bswap_16(v)
-#define CF_LE_L(v) bswap_32(v)
-#define CT_LE_W(v) CF_LE_W(v)
-#define CT_LE_L(v) CF_LE_L(v)
-#else
-#define CF_LE_W(v) (v)
-#define CF_LE_L(v) (v)
-#define CT_LE_W(v) (v)
-#define CT_LE_L(v) (v)
-#endif /* __BIG_ENDIAN */
+#include <stddef.h>
+#include <stdint.h>
+#include <endian.h>
 
 #define VFAT_LN_ATTR (ATTR_RO | ATTR_HIDDEN | ATTR_SYS | ATTR_VOLUME)
+
+#define FAT_STATE_DIRTY 0x01
 
 /* ++roman: Use own definition of boot sector structure -- the kernel headers'
  * name for it is msdos_boot_sector in 2.0 and fat_boot_sector in 2.1 ... */
@@ -161,8 +151,8 @@ typedef struct _dos_file {
 } DOS_FILE;
 
 typedef struct {
-    unsigned long value;
-    unsigned long reserved;
+    uint32_t value;
+    uint32_t reserved;
 } FAT_ENTRY;
 
 typedef struct {
@@ -171,12 +161,12 @@ typedef struct {
     unsigned int fat_size;	/* unit is bytes */
     unsigned int fat_bits;	/* size of a FAT entry */
     unsigned int eff_fat_bits;	/* # of used bits in a FAT entry */
-    unsigned long root_cluster;	/* 0 for old-style root dir */
+    uint32_t root_cluster;	/* 0 for old-style root dir */
     loff_t root_start;
     unsigned int root_entries;
     loff_t data_start;
     unsigned int cluster_size;
-    unsigned long clusters;
+    uint32_t clusters;
     loff_t fsinfo_start;	/* 0 if not present */
     long free_clusters;
     loff_t backupboot_start;	/* 0 if not present */
@@ -185,10 +175,6 @@ typedef struct {
     char *label;
 } DOS_FS;
 
-#ifndef offsetof
-#define offsetof(t,e)	((int)&(((t *)0)->e))
-#endif
-
 extern int interactive, rw, list, verbose, test, write_immed;
 extern int atari_format;
 extern unsigned n_files;
@@ -196,7 +182,7 @@ extern void *mem_queue;
 
 /* value to use as end-of-file marker */
 #define FAT_EOF(fs)	((atari_format ? 0xfff : 0xff8) | FAT_EXTD(fs))
-#define FAT_IS_EOF(fs,v) ((unsigned long)(v) >= (0xff8|FAT_EXTD(fs)))
+#define FAT_IS_EOF(fs,v) ((uint32_t)(v) >= (0xff8|FAT_EXTD(fs)))
 /* value to mark bad clusters */
 #define FAT_BAD(fs)	(0xff7 | FAT_EXTD(fs))
 /* range of values used for bad clusters */

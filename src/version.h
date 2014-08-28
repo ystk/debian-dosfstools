@@ -1,6 +1,7 @@
 /* version.h
 
    Copyright (C) 1998-2005 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+   Copyright (C) 2008-2014 Daniel Baumann <mail@daniel-baumann.ch>
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,14 +16,14 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
 #ifndef _version_h
 #define _version_h
 
-#define VERSION "3.0.13"
-#define VERSION_DATE "30 Jun 2012"
+#define VERSION "3.0.26"
+#define VERSION_DATE "2014-03-07"
 
 #endif

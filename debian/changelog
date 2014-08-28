@@ -1,3 +1,145 @@
+dosfstools (3.0.26-3) unstable; urgency=low
+
+  * Orphaning package.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 25 Jul 2014 21:11:41 +0200
+
+dosfstools (3.0.26-2) unstable; urgency=low
+
+  * Updating year in copyright file.
+  * Building with dh --parallel.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 31 Mar 2014 19:47:37 +0200
+
+dosfstools (3.0.26-1) experimental; urgency=low
+
+  * Merging upstream version 3.0.26.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 07 Mar 2014 18:52:50 +0100
+
+dosfstools (3.0.25-1) experimental; urgency=low
+
+  * Merging upstream version 3.0.25.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 17 Jan 2014 07:14:46 +0100
+
+dosfstools (3.0.24-1) experimental; urgency=low
+
+  * Updating to standards version 3.9.5.
+  * Merging upstream version 3.0.24.
+  * Including legacy symlinks.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 23 Nov 2013 10:47:09 +0100
+
+dosfstools (3.0.23-1) experimental; urgency=low
+
+  * Updating vcs fields.
+  * Merging upstream version 3.0.23.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 15 Oct 2013 08:09:23 +0200
+
+dosfstools (3.0.22-1) experimental; urgency=low
+
+  * Merging upstream version 3.0.22:
+    - improves bootability of hdd filesystems (Closes: #552673, #557061).
+    - allows writing all lowercase labels (Closes: #714971).
+  * Using uninstall-symlinks target rather than manual removal in rules.
+  * Calling dh_install with --fail-missing in rules.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 19 Jul 2013 07:06:36 +0200
+
+dosfstools (3.0.21-2) experimental; urgency=low
+
+  * Adding vcs fields.
+  * Wrapping control fields.
+  * Avoid pulling in legacy symlinks in udeb.
+  * Also including fatlabel in udeb.
+  * Dropping legacy symlinks.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 17 Jul 2013 12:48:19 +0200
+
+dosfstools (3.0.21-1) experimental; urgency=low
+
+  * Merging upstream version 3.0.21.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 16 Jul 2013 08:50:22 +0200
+
+dosfstools (3.0.20-1) experimental; urgency=low
+
+  * Merging upstream version 3.0.20:
+    - Fixing default sectors per cluster for FAT32 (Closes: #690062).
+    - Softening message about different boot sectors a bit (Closes: #704198).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 12 Jun 2013 12:29:24 +0200
+
+dosfstools (3.0.19-1) experimental; urgency=low
+
+  * Updating package descriptions.
+  * Merging upstream version 3.0.19.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 11 Jun 2013 18:50:53 +0200
+
+dosfstools (3.0.18-1) experimental; urgency=low
+
+  * Merging upstream version 3.0.18:
+    - dosfslabel: Do not read beyond string length (Closes: #709587).
+  * Updating udeb debhelper install file for upstreams file renamings.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 06 Jun 2013 09:56:40 +0200
+
+dosfstools (3.0.17-2) experimental; urgency=low
+
+  * Building dosfstools on linux architectures only.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 06 Jun 2013 08:14:53 +0200
+
+dosfstools (3.0.17-1) experimental; urgency=low
+
+  * Shortening links to upstream homepage.
+  * Merging upstream version 3.0.17:
+    - fixes segfault in dosfslabel (Closes: #702392).
+    - clarifies label max lenghts in manpage (Closes: #655953).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 29 May 2013 10:24:54 +0200
+
+dosfstools (3.0.16-2) unstable; urgency=low
+
+  * Removing all references to my old email address.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 10 Mar 2013 19:58:06 +0100
+
+dosfstools (3.0.16-1) unstable; urgency=low
+
+  * Merging upstream version 3.0.16.
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 01 Mar 2013 09:03:53 +0100
+
+dosfstools (3.0.15-1) unstable; urgency=low
+
+  [ Colin Watson ]
+  * Using correct compiler when cross-building.
+
+  [ Daniel Baumann ]
+  * Merging upstream version 3.0.15:
+    - Bugfix root directory allocation (Closes: #639393).
+    - Bugfix messages about unicode filenames (Closes: #596336).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 21 Feb 2013 15:20:07 +0100
+
+dosfstools (3.0.14-1) unstable; urgency=low
+
+  * Merging upstream version 3.0.14.
+  * Updating to standards version 3.9.4.
+  * Updating copyright file for 2013.
+  * Dropping dpkg compression level.
+  * Adding dpkg-source local-options.
+  * Applying slightly modified patch from Colin Watson
+    <cjwatson@ubuntu.com> to add a udeb package, mainly so that d-i can
+    use mkdosfs instead of deprecated and semi-broken libparted code
+    (Closes: #698433).
+
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Wed, 23 Jan 2013 13:42:32 +0100
+
 dosfstools (3.0.13-1) unstable; urgency=low
 
   * Merging upstream version 3.0.13.
@@ -6,7 +148,7 @@ dosfstools (3.0.13-1) unstable; urgency=low
   * Updating to standards version 3.9.3.
   * Updating copyright file to format 1.0.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sat, 30 Jun 2012 19:15:41 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 30 Jun 2012 19:15:41 +0200
 
 dosfstools (3.0.12-1) unstable; urgency=low
 
@@ -20,7 +162,7 @@ dosfstools (3.0.12-1) unstable; urgency=low
   * Sorting overrides in rules.
   * Using compression level 9 also for binary packages.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sat, 29 Oct 2011 08:53:43 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 29 Oct 2011 08:53:43 +0200
 
 dosfstools (3.0.11-1) experimental; urgency=low
 
@@ -28,7 +170,7 @@ dosfstools (3.0.11-1) experimental; urgency=low
   * Switching to source format 3.0 (quilt).
   * Updating to debhelper version 8.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Fri, 24 Dec 2010 18:08:19 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 24 Dec 2010 18:08:19 +0100
 
 dosfstools (3.0.10-1) experimental; urgency=low
 
@@ -39,7 +181,7 @@ dosfstools (3.0.10-1) experimental; urgency=low
     - Updates LFN when renaming or deleting short filename (Closes: #596329).
   * Updating standards version to 3.9.1.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sun, 12 Sep 2010 09:39:52 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 12 Sep 2010 09:39:52 +0200
 
 dosfstools (3.0.9-1) unstable; urgency=low
 
@@ -47,14 +189,14 @@ dosfstools (3.0.9-1) unstable; urgency=low
   * Merging upstream version 3.0.9:
     - fixes regression with aligning (Closes: #567337).
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sun, 31 Jan 2010 08:34:41 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 31 Jan 2010 08:34:41 +0100
 
 dosfstools (3.0.8-1) unstable; urgency=low
 
   * Updating year in copyright file.
   * Merging upstream version 3.0.8.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sat, 23 Jan 2010 10:19:23 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 23 Jan 2010 10:19:23 +0100
 
 dosfstools (3.0.7-1) unstable; urgency=low
 
@@ -63,7 +205,7 @@ dosfstools (3.0.7-1) unstable; urgency=low
   * Merging upstream version 3.0.7:
     - Fixes dosfslabel to set volume label in the right place (Closes: #559985).
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Thu, 24 Dec 2009 10:57:15 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 24 Dec 2009 10:57:15 +0100
 
 dosfstools (3.0.6-1) unstable; urgency=low
 
@@ -78,7 +220,7 @@ dosfstools (3.0.6-1) unstable; urgency=low
   * Removing not used patch from debian directory.
   * Merging upstream version 3.0.6.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sun, 04 Oct 2009 11:06:57 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 04 Oct 2009 11:06:57 +0200
 
 dosfstools (3.0.5-1) unstable; urgency=low
 
@@ -86,7 +228,7 @@ dosfstools (3.0.5-1) unstable; urgency=low
     - fixes bug from VFAT patent avoidance patch that can resultin data loss
       (Closes: #538758).
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Mon, 27 Jul 2009 14:38:51 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 27 Jul 2009 14:38:51 +0200
 
 dosfstools (3.0.4-1) unstable; urgency=low
 
@@ -95,7 +237,7 @@ dosfstools (3.0.4-1) unstable; urgency=low
   * Merging upstream version 3.0.4.
   * Updating package to standards version 3.8.2.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Tue, 21 Jul 2009 08:17:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Tue, 21 Jul 2009 08:17:00 +0200
 
 dosfstools (3.0.3-1) unstable; urgency=low
 
@@ -106,7 +248,7 @@ dosfstools (3.0.3-1) unstable; urgency=low
   * Rewriting copyright file for upstream version 3.x.
   * Using correct rfc-2822 date formats in changelog.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Mon, 18 May 2009 15:23:49 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Mon, 18 May 2009 15:23:49 +0200
 
 dosfstools (3.0.2-1) unstable; urgency=low
 
@@ -115,7 +257,7 @@ dosfstools (3.0.2-1) unstable; urgency=low
   * Prefixing debhelper files with package name.
   * Updating year in copyright.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sat, 28 Feb 2009 09:57:00 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 28 Feb 2009 09:57:00 +0100
 
 dosfstools (3.0.1-1) unstable; urgency=low
 
@@ -124,7 +266,7 @@ dosfstools (3.0.1-1) unstable; urgency=low
     - Changing some wording to make the indended meaning of "full-disk device"
       more obvious (Closes: #500623).
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sun, 23 Nov 2008 22:51:46 +0100
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 23 Nov 2008 22:51:46 +0100
 
 dosfstools (3.0.0-1) unstable; urgency=low
 
@@ -137,13 +279,13 @@ dosfstools (3.0.0-1) unstable; urgency=low
   * Removing now useless docs.
   * Updating rules to for new upstream.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sun, 28 Sep 2008 11:56:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sun, 28 Sep 2008 11:56:00 +0200
 
 dosfstools (2.11-8) unstable; urgency=low
 
   * Adding debug package.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sat, 20 Sep 2008 21:52:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 20 Sep 2008 21:52:00 +0200
 
 dosfstools (2.11-7) unstable; urgency=low
 
@@ -152,14 +294,14 @@ dosfstools (2.11-7) unstable; urgency=low
   * Updating vcs fields in control file.
   * Using patch-stamp rather than patch in rules file.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Sat, 20 Sep 2008 21:48:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Sat, 20 Sep 2008 21:48:00 +0200
 
 dosfstools (2.11-6) unstable; urgency=high
 
   * Temporarily disabling bootcode.dpatch since it breaks syslinux,
     thanks to Joey Hess <joeyh@debian.org> (Closes: #489292).
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Fri, 04 Jul 2008 20:28:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 04 Jul 2008 20:28:00 +0200
 
 dosfstools (2.11-5) unstable; urgency=medium
 
@@ -185,7 +327,7 @@ dosfstools (2.11-5) unstable; urgency=medium
     (Closes: #306659).
   * Breaking out manpage typos patch.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Fri, 27 Jun 2008 09:03:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Fri, 27 Jun 2008 09:03:00 +0200
 
 dosfstools (2.11-4) unstable; urgency=low
 
@@ -200,13 +342,13 @@ dosfstools (2.11-4) unstable; urgency=low
   * Added patch from Petr Gajdos <pgajdos@suse.cz> to automatically determine
     sector size of the device.
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Thu, 26 Jun 2008 13:13:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 26 Jun 2008 13:13:00 +0200
 
 dosfstools (2.11-3) unstable; urgency=low
 
   * New maintainer (Closes: #488018).
 
- -- Daniel Baumann <daniel.baumann@progress-technologies.net>  Thu, 26 Jun 2008 12:31:00 +0200
+ -- Daniel Baumann <mail@daniel-baumann.ch>  Thu, 26 Jun 2008 12:31:00 +0200
 
 dosfstools (2.11-2.3) unstable; urgency=low
 
