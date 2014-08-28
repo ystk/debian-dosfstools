@@ -1,7 +1,8 @@
-/* dosfsck.c - User interface
+/* fsck.fat.c - User interface
 
    Copyright (C) 1993 Werner Almesberger <werner.almesberger@lrc.di.epfl.ch>
    Copyright (C) 1998 Roman Hodek <Roman.Hodek@informatik.uni-erlangen.de>
+   Copyright (C) 2008-2014 Daniel Baumann <mail@daniel-baumann.ch>
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,7 +17,7 @@
    You should have received a copy of the GNU General Public License
    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-   On Debian systems, the complete text of the GNU General Public License
+   The complete text of the GNU General Public License
    can be found in /usr/share/common-licenses/GPL-3 file.
 */
 
@@ -33,31 +34,36 @@
 #include <getopt.h>
 
 #include "common.h"
-#include "dosfsck.h"
+#include "fsck.fat.h"
 #include "io.h"
 #include "boot.h"
 #include "fat.h"
 #include "file.h"
 #include "check.h"
+#include "charconv.h"
 
 int interactive = 0, rw = 0, list = 0, test = 0, verbose = 0, write_immed = 0;
-int atari_format = 0;
+int atari_format = 0, boot_only = 0;
 unsigned n_files = 0;
 void *mem_queue = NULL;
 
 static void usage(char *name)
 {
-    fprintf(stderr, "usage: %s [-aAflrtvVwy] [-d path -d ...] "
+    fprintf(stderr, "usage: %s [-aAbflrtvVwy] [-d path -d ...] "
 	    "[-u path -u ...]\n%15sdevice\n", name, "");
-    fprintf(stderr, "  -a       automatically repair the file system\n");
-    fprintf(stderr, "  -A       toggle Atari file system format\n");
+    fprintf(stderr, "  -a       automatically repair the filesystem\n");
+    fprintf(stderr, "  -A       toggle Atari filesystem format\n");
+    fprintf(stderr, "  -b       make read-only boot sector check\n");
+    fprintf(stderr,
+	    "  -c N     use DOS codepage N to decode short file names (default: %d)\n",
+	    DEFAULT_DOS_CODEPAGE);
     fprintf(stderr, "  -d path  drop that file\n");
     fprintf(stderr, "  -f       salvage unused chains to files\n");
     fprintf(stderr, "  -l       list path names\n");
     fprintf(stderr,
 	    "  -n       no-op, check non-interactively without changing\n");
     fprintf(stderr, "  -p       same as -a, for compat with other *fsck\n");
-    fprintf(stderr, "  -r       interactively repair the file system\n");
+    fprintf(stderr, "  -r       interactively repair the filesystem\n");
     fprintf(stderr, "  -t       test for bad clusters\n");
     fprintf(stderr, "  -u path  try to undelete that (non-directory) file\n");
     fprintf(stderr, "  -v       verbose mode\n");
@@ -99,15 +105,14 @@ int main(int argc, char **argv)
 {
     DOS_FS fs;
     int salvage_files, verify, c;
-    unsigned n_files_check = 0, n_files_verify = 0;
-    unsigned long free_clusters;
+    uint32_t free_clusters = 0;
 
     memset(&fs, 0, sizeof(fs));
     rw = salvage_files = verify = 0;
     interactive = 1;
     check_atari();
 
-    while ((c = getopt(argc, argv, "Aad:flnprtu:vVwy")) != EOF)
+    while ((c = getopt(argc, argv, "Aac:d:bflnprtu:vVwy")) != EOF)
 	switch (c) {
 	case 'A':		/* toggle Atari format */
 	    atari_format = !atari_format;
@@ -118,6 +123,14 @@ int main(int argc, char **argv)
 	    rw = 1;
 	    interactive = 0;
 	    salvage_files = 1;
+	    break;
+	case 'b':
+	    rw = 0;
+	    interactive = 0;
+	    boot_only = 1;
+	    break;
+	case 'c':
+	    set_dos_codepage(atoi(optarg));
 	    break;
 	case 'd':
 	    file_add(optarg, fdt_drop);
@@ -144,7 +157,7 @@ int main(int argc, char **argv)
 	    break;
 	case 'v':
 	    verbose = 1;
-	    printf("dosfsck " VERSION " (" VERSION_DATE ")\n");
+	    printf("fsck.fat " VERSION " (" VERSION_DATE ")\n");
 	    break;
 	case 'V':
 	    verify = 1;
@@ -155,6 +168,7 @@ int main(int argc, char **argv)
 	default:
 	    usage(argv[0]);
 	}
+    set_dos_codepage(-1);	/* set default codepage if none was given in command line */
     if ((test || write_immed) && !rw) {
 	fprintf(stderr, "-t and -w require -a or -r\n");
 	exit(2);
@@ -162,9 +176,13 @@ int main(int argc, char **argv)
     if (optind != argc - 1)
 	usage(argv[0]);
 
-    printf("dosfsck " VERSION ", " VERSION_DATE ", FAT32, LFN\n");
+    printf("fsck.fat " VERSION " (" VERSION_DATE ")\n");
     fs_open(argv[optind], rw);
+
     read_boot(&fs);
+    if (boot_only)
+	goto exit;
+
     if (verify)
 	printf("Starting check/repair pass.\n");
     while (read_fat(&fs), scan_root(&fs))
@@ -178,7 +196,6 @@ int main(int argc, char **argv)
     free_clusters = update_free(&fs);
     file_unused();
     qfree(&mem_queue);
-    n_files_check = n_files;
     if (verify) {
 	n_files = 0;
 	printf("Starting verification pass.\n");
@@ -186,9 +203,9 @@ int main(int argc, char **argv)
 	scan_root(&fs);
 	reclaim_free(&fs);
 	qfree(&mem_queue);
-	n_files_verify = n_files;
     }
 
+exit:
     if (fs_changed()) {
 	if (rw) {
 	    if (interactive)
@@ -196,11 +213,12 @@ int main(int argc, char **argv)
 	    else
 		printf("Performing changes.\n");
 	} else
-	    printf("Leaving file system unchanged.\n");
+	    printf("Leaving filesystem unchanged.\n");
     }
 
-    printf("%s: %u files, %lu/%lu clusters\n", argv[optind],
-	   n_files, fs.clusters - free_clusters, fs.clusters);
+    if (!boot_only)
+	printf("%s: %u files, %lu/%lu clusters\n", argv[optind],
+	       n_files, (unsigned long)fs.clusters - free_clusters, (unsigned long)fs.clusters);
 
     return fs_close(rw) ? 1 : 0;
 }
