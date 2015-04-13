@@ -1,7 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dosfstools
-Upstream-Contact: Daniel Baumann <mail@daniel-baumann.ch>
-Source: http://daniel-baumann.ch/files/software/dosfstools/
+Upstream-Contact: Andreas Bombe <aeb@debian.org>
+Source: https://github.com/dosfstools/dosfstools
 
 Files: *
 Copyright: 1991 Linus Torvalds <torvalds@klaava.helsinki.fi>

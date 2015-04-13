@@ -1,3 +1,37 @@
+dosfstools (3.0.27-1) unstable; urgency=medium
+
+  * New upstream version 3.0.27
+    - fixes fatlabel mangling long file names in root directory
+      (Closes: #768909)
+    - fixes spurious uncorrectable empty file name error reported by
+      fsck.fat (thanks to AlexisM for finding the cause)
+      (Closes: #764992)
+  * New maintainer
+  * New upstream, change debian/watch and fields in debian/control and
+    debian/copyright accordingly
+  * Remove 0001-LFN-is-no-volume-entry.patch, already fixed in upstream
+
+ -- Andreas Bombe <aeb@debian.org>  Wed, 12 Nov 2014 03:21:26 +0100
+
+dosfstools (3.0.26-5) unstable; urgency=medium
+
+  * QA upload
+  * set Vcs-* to collab-maint
+  * add 0001-LFN-is-no-volume-entry.patch:
+    don't overwrite LFN entries with volume entries (Closes: #768909)
+
+ -- Bernhard R. Link <brlink@debian.org>  Tue, 11 Nov 2014 20:38:15 +0100
+
+dosfstools (3.0.26-4) unstable; urgency=medium
+
+  * QA upload.
+  * Bumped Standards-Version to 3.9.6.
+  * Added a debian/watch file.
+  * debian/rules: added the DEB_BUILD_MAINT_OPTIONS
+    variable to fix the issues pointed by blhc.
+
+ -- Joao Eriberto Mota Filho <eriberto@debian.org>  Sun, 12 Oct 2014 03:09:10 -0300
+
 dosfstools (3.0.26-3) unstable; urgency=low
 
   * Orphaning package.
